@@ -1,9 +1,9 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:investapp/modules/auth/presentation/controllers/register_controller.dart';
+import 'package:investapp/modules/auth/presentation/view_model/register_view_model.dart';
 import 'package:investapp/shared/shared.dart';
 import 'package:multi_value_listenable_builder/multi_value_listenable_builder.dart';
 
-final class RegisterFormWidget extends BaseWidget<RegisterController> {
+final class RegisterFormWidget extends BaseWidget<RegisterViewModel> {
   const RegisterFormWidget({super.key});
 
   @override
@@ -59,8 +59,8 @@ final class RegisterFormWidget extends BaseWidget<RegisterController> {
 
           MultiValueListenableBuilder(
             valueListenables: [
-              controller.formIsValid,
-              controller.isSending,
+              viewModel.formIsValid,
+              viewModel.isSending,
             ],
             builder: (context, values, child) {
               bool formIsValid = values[0];
@@ -68,7 +68,7 @@ final class RegisterFormWidget extends BaseWidget<RegisterController> {
               return ButtonLoadingWidget(
                 text: "Criar conta",
                 enable: formIsValid && !isSending,
-                onPressed: () => controller.register(() {
+                onPressed: () => viewModel.register(() {
                   Navigator.of(context).pop();
                 }),
               );
